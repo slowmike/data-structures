@@ -17,7 +17,6 @@ queueMethods.enqueue = function(value) {
 queueMethods.dequeue = function() {
   if(this.queueSize > 0) {
     var nextVal = this.storage[0];
-    console.log(this.storage);
     for(var i = 1; i < this.queueSize; i++) {
       this.storage[i-1] = this.storage[i];
     }
