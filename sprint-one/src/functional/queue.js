@@ -12,12 +12,12 @@ var Queue = function() {
   };
 
   someInstance.dequeue = function() {
-    if(size > 0) {
+    if (size > 0) {
       var nextVal = storage[0];
-      for(var i = 1; i < size; i++) {
-        storage[i-1] = storage[i];
+      for (var i = 1; i < size; i++) {
+        storage[i - 1] = storage[i];
       }
-      delete storage[size-1];
+      delete storage[size - 1];
       size--;
       return nextVal;
     }

@@ -12,9 +12,9 @@ var Stack = function() {
   };
 
   someInstance.pop = function() {
-    if(size > 0) {
-      var topVal = storage[size-1];
-      delete storage[size-1];
+    if (size > 0) {
+      var topVal = storage[size - 1];
+      delete storage[size - 1];
       size--;
       return topVal;
     }

@@ -13,17 +13,17 @@ var stackMethods = {};
 stackMethods.push = function(value) {
   this.storage[this.stackSize] = value;
   this.stackSize++;
-}
+};
 
 stackMethods.pop = function() {
-  if(this.stackSize > 0) {
-    var topVal = this.storage[this.stackSize-1];
-    delete this.storage[this.stackSize-1];
+  if (this.stackSize > 0) {
+    var topVal = this.storage[this.stackSize - 1];
+    delete this.storage[this.stackSize - 1];
     this.stackSize--;
     return topVal;
   }
-}
+};
 
 stackMethods.size = function() {
   return this.stackSize;
-}
+};

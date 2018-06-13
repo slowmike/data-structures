@@ -8,20 +8,20 @@ var Queue = function() {
 Queue.prototype.enqueue = function(value) {
   this.storage[this.queueSize] = value;
   this.queueSize++;
-}
+};
 
 Queue.prototype.dequeue = function() {
-  if(this.queueSize > 0) {
+  if (this.queueSize > 0) {
     var nextVal = this.storage[0];
-    for(var i = 1; i < this.queueSize; i++) {
-      this.storage[i-1] = this.storage[i];
+    for (var i = 1; i < this.queueSize; i++) {
+      this.storage[i - 1] = this.storage[i];
     }
-    delete this.storage[this.queueSize-1];
+    delete this.storage[this.queueSize - 1];
     this.queueSize--;
     return nextVal;
   }
-}
+};
 
-Queue.prototype.size = function(){
+Queue.prototype.size = function() {
   return this.queueSize;
-}
+};
