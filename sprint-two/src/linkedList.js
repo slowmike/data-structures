@@ -1,12 +1,29 @@
 var LinkedList = function() {
-  var list = {};
-  list.head = null;
-  list.tail = null;
+  var list = {/** head : , tail: property*/}; //object filled with nodes, with special properties for head and tail
+  list.head = null;//an instance of a node
+  list.tail = null;// an instance of a node
 
   list.addToTail = function(value) {
+    var newNode = Node(value);
+
+    if(list.head === null || list.tail === null) {
+      list.head = newNode;
+      list.tail = newNode;
+    } else {
+      list.tail.next = newNode;
+      list.tail = newNode;
+    }
   };
 
   list.removeHead = function() {
+    if (list.head === null) {
+      return list.head;
+    }
+
+    var value = list.head.value;
+    list.head = list.head.next;
+
+    return value;
   };
 
   list.contains = function(target) {
@@ -19,7 +36,7 @@ var Node = function(value) {
   var node = {};
 
   node.value = value;
-  node.next = null;
+  node.next = null; //an instance of a node
 
   return node;
 };
