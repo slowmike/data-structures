@@ -7,6 +7,10 @@ var HashTable = function() {
 
 HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
+  //if storage[index] equals undefined
+  //set storage[index] to empty array
+  //push [k, v] to array
+
 };
 
 HashTable.prototype.retrieve = function(k) {
@@ -22,5 +26,3 @@ HashTable.prototype.remove = function(k) {
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-
-
