@@ -20,7 +20,7 @@ Graph.prototype.contains = function(node) {
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
   var edgeList = this.myNodes[node].edges;
-  for(var edge in edgeList) {
+  for (var edge in edgeList) {
     this.removeEdge(node, edge);
   }
   delete this.myNodes[node];
