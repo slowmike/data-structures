@@ -13,6 +13,7 @@ var LinkedList = function() {
       list.tail.next = newNode;
       list.tail = newNode;
     }
+    console.log(newNode.value);
   };
 
   list.removeHead = function() {
@@ -27,6 +28,14 @@ var LinkedList = function() {
   };
 
   list.contains = function(target) {
+    var current = list.head;
+    while(current !== null) {
+      if(current.value === target) {
+        return true;
+      }
+      current = current.next;
+    }
+    return false;
   };
 
   return list;
