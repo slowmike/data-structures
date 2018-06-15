@@ -3,10 +3,13 @@
 // Instantiate a new graph
 var Graph = function() {
   this.myNodes = {}; // all the nodes contained in this graph, key is node value, value is the node itself
+
 };
 
 // Add a node to the graph, passing in the node's value.
 Graph.prototype.addNode = function(node) {
+  var newNode = new GraphNode(node);
+  this.myNodes[node] = newNode;
 };
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
