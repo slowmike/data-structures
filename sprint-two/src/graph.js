@@ -6,7 +6,14 @@ var Graph = function() {
 
 };
 
-// Add a node to the graph, passing in the node's value.
+/**
+ * addNode(node)
+ * Input: value, representing the value of the node to be added
+ * Output: nothing
+ * Side Effects: Creates a new GraphNode with the value passed into the fcn and adds it to the graph
+ * Constraints: node cannot be null and node cannot be a repeat
+ * Time Complexity: O(1)
+ */
 Graph.prototype.addNode = function(node) {
   if (node !== null) {
     var newNode = new GraphNode(node);
@@ -14,12 +21,26 @@ Graph.prototype.addNode = function(node) {
   }
 };
 
-// Return a boolean value indicating if the value passed to contains is represented in the graph.
+/**
+ * contains(target node)
+ * Input: a value representing the desired node to be found
+ * Output: boolean value indicating if the value passed to contains is represented in the graph.
+ * Side Effects: none
+ * Constraints: none
+ * Time Complexity: O(1)
+ */
 Graph.prototype.contains = function(node) {
   return this.myNodes[node] !== undefined;
 };
 
-// Removes a node from the graph.
+/**
+ * removeNode(target node)
+ * Input: a value representing the desired node to be removed
+ * Output: none
+ * Side Effects: removes the node with the value passed in from the graph object's node list and removes the associated edges of the node
+ * Constraints: if the node does not exist, do nothing
+ * Time Complexity: O(n), where n is the number of edges
+ */
 Graph.prototype.removeNode = function(node) {
   var edgeList = this.myNodes[node].edges;
   for (var edge in edgeList) {
@@ -28,13 +49,27 @@ Graph.prototype.removeNode = function(node) {
   delete this.myNodes[node];
 };
 
-// Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
+/**
+ * hasEdge(fromNode, toNode)
+ * Input: the value of the first and second nodes
+ * Output: boolean value indicating if the two nodes share an edge
+ * Side Effects: none
+ * Constraints: both nodes should exist in the graph
+ * Time Complexity: O(1)
+ */
 Graph.prototype.hasEdge = function(fromNode, toNode) {
   var edges = this.myNodes[fromNode].edges;
   return edges[toNode] !== undefined;
 };
 
-// Connects two nodes in a graph by adding an edge between them.
+/**
+ * addEdge(fromNode, toNode)
+ * Input: the value of the first and second nodes
+ * Output: none
+ * Side Effects: adds an edge between the 2 nodes, AKA updates each node's edges property to reflect the new connection
+ * Constraints: both nodes must exist
+ * Time Complexity: O(1)
+ */
 Graph.prototype.addEdge = function(fromNode, toNode) {
   //add the edge in the edgelist of from nodes
   var from = this.myNodes[fromNode];
@@ -44,13 +79,27 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
   to.edges[fromNode] = fromNode;
 };
 
-// Remove an edge between any two specified (by value) nodes.
+/**
+ * removeEdge(fromNode, toNode)
+ * Input: the value of the first and second nodes
+ * Output: none
+ * Side Effects: removes an edge between the 2 nodes, AKA updates each node's edges property to reflect the lost connection
+ * Constraints: both nodes must exist
+ * Time Complexity: O(1)
+ */
 Graph.prototype.removeEdge = function(fromNode, toNode) {
   delete this.myNodes[fromNode].edges[toNode];
   delete this.myNodes[toNode].edges[fromNode];
 };
 
-// Pass in a callback which will be executed on each node of the graph.
+/**
+ * addEdge(fromNode, toNode)
+ * Input: the value of the first and second nodes
+ * Output: none
+ * Side Effects: adds an edge between the 2 nodes, AKA updates each node's edges property to reflect the new connection
+ * Constraints: both nodes must exist
+ * Time Complexity: O(1)
+ */
 Graph.prototype.forEachNode = function(cb) {
   for (var node in this.myNodes) {
     cb(node);
