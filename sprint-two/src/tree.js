@@ -11,6 +11,14 @@ var Tree = function(value) {
 
 var treeMethods = {};
 
+/**
+ * addChild(value)
+ * Input: value to be inserted
+ * Output: no output
+ * Side Effects: creates new Tree object to be pushed to current Tree's children
+ * Constraints: if value given is null, do nothing
+ * Time Complexity: O(1)
+ */
 treeMethods.addChild = function(value) {
   if (value !== null) {
     var node = Tree(value);
@@ -18,6 +26,14 @@ treeMethods.addChild = function(value) {
   }
 };
 
+/**
+ * contains(target value)
+ * Input: target value to be found in Tree
+ * Output: boolean, true if target is found, false otherwise
+ * Side Effects: no side effect
+ * Constraints: no constraint
+ * Time Complexity: O(n)
+ */
 treeMethods.contains = function(target) {
   if (this.value === target) {
     return true;
