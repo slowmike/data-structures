@@ -19,7 +19,7 @@ HashTable.prototype.insert = function(k, v) {
     var index = getIndexBelowMaxForKey(k, this._limit);
     if (loadFactor(this._numEntries + 1, this._limit) >= 75) {
       var oldTuples = [];
-      this._storage.each(function(bucket, index, storage) {
+      this._storage.each(function(bucket) {
         for (pair in bucket) {
           oldTuples.push(pair);
         }
@@ -39,16 +39,13 @@ HashTable.prototype.insert = function(k, v) {
     }
     var bucket = this._storage.get(index);
 
-    var contains = false;
     for (var i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === k) {
         bucket[i][1] = v;
-        contains = true;
+        return;
       }
     }
-    if (!contains) {
-      bucket.push(tuple);
-    }
+    bucket.push(tuple);
     this._numEntries++;
   }
 };
@@ -87,7 +84,7 @@ HashTable.prototype.remove = function(k) {
 
   if (loadFactor(this._numEntries - 1, this._limit) <= 25 && this._limit > 8) {
     var oldTuples = [];
-    this._storage.each(function(bucket, index, storage) {
+    this._storage.each(function(bucket) {
       for (pair in bucket) {
         oldTuples.push(pair);
       }
@@ -97,7 +94,7 @@ HashTable.prototype.remove = function(k) {
     this._storage = LimitedArray(this._limit);
     this._numEntries = 0;
     for (pair in oldTuples) {
-      this.remove(pair[0]);
+      this.remove(pair);
     }
   }
 
