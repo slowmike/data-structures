@@ -6,57 +6,48 @@ var HashTable = function() {
 };
 
 HashTable.prototype.insert = function(k, v) {
-  var index = getIndexBelowMaxForKey(k, this._limit);
-  //create a tuple that hold the key and the value
-  //oldTuples
-  //if exceeds loadFactor
-  //  loop through storage
-  //    for each tuple in bucket
-  //      oldTuples.push(tuple)
-  //  this._limit doubles
-  //  this._storage = LimitedArray(this._limit)
-  //  this._numEntries = 0;
-  //  for tuples in tuples
-  //    this.insert(tuples[0],tuples[1])
-
-  //check if the number of entries + 1 exceeds the load limit
-  if (loadFactor(this._numEntries + 1, this._limit) >= 75) {
-    var oldTuples = [];
-    this._storage.each(function(bucket, index, storage) {
-      for(pair in bucket) {
-        oldTuples.push(pair);
+  if (k !== null) {
+    var index = getIndexBelowMaxForKey(k, this._limit);
+    if (loadFactor(this._numEntries + 1, this._limit) >= 75) {
+      var oldTuples = [];
+      this._storage.each(function(bucket, index, storage) {
+        for (pair in bucket) {
+          oldTuples.push(pair);
+        }
+      });
+      //double the storage size
+      this._limit *= 2;
+      this._storage = LimitedArray(this._limit);
+      this._numEntries = 0;
+      for (pair in oldTuples) {
+        this.insert(pair[0], pair[1]);
       }
-    });
-    //double the storage size
-    this._limit *= 2;
-    this._storage = LimitedArray(this._limit);
-    this._numEntries = 0;
-    for(pair in oldTuples) {
-      this.insert(pair[0], pair[1]);
     }
-  }
 
-  var tuple = [k, v];
-  if (this._storage.get(index) === undefined) {
-    this._storage.set(index, []);
-  }
-  var bucket = this._storage.get(index);
-
-  var contains = false;
-  for (var i = 0; i < bucket.length; i++) {
-    if (bucket[i][0] === k) {
-      bucket[i][1] = v;
-      contains = true;
+    var tuple = [k, v];
+    if (this._storage.get(index) === undefined) {
+      this._storage.set(index, []);
     }
-  }
-  if (!contains) {
-    bucket.push(tuple);
-  }
-  this._numEntries++;
+    var bucket = this._storage.get(index);
 
+    var contains = false;
+    for (var i = 0; i < bucket.length; i++) {
+      if (bucket[i][0] === k) {
+        bucket[i][1] = v;
+        contains = true;
+      }
+    }
+    if (!contains) {
+      bucket.push(tuple);
+    }
+    this._numEntries++;
+  }
 };
 
 HashTable.prototype.retrieve = function(k) {
+  if (k === null) {
+    return undefined;
+  }
   var index = getIndexBelowMaxForKey(k, this._limit);
   if (this._storage.get(index) !== undefined) {
     for (var tuple of this._storage.get(index)) {
@@ -72,24 +63,24 @@ HashTable.prototype.remove = function(k) {
   if (loadFactor(this._numEntries - 1, this._limit) <= 25 && this._limit > 8) {
     var oldTuples = [];
     this._storage.each(function(bucket, index, storage) {
-      for(pair in bucket) {
+      for (pair in bucket) {
         oldTuples.push(pair);
       }
     });
     //half the storage size
-    this._limit = this._limit/2;
+    this._limit = this._limit / 2;
     this._storage = LimitedArray(this._limit);
     this._numEntries = 0;
-    for(pair in oldTuples) {
+    for (pair in oldTuples) {
       this.remove(pair[0]);
     }
   }
 
   var index = getIndexBelowMaxForKey(k, this._limit);
   //set bucket at the index ok k to be sliced
-  var bucket = this._storage.get(index)
-  for(var i in bucket) {
-    if(bucket[i][0] === k) {
+  var bucket = this._storage.get(index);
+  for (var i in bucket) {
+    if (bucket[i][0] === k) {
       bucket.splice(i, 1);
     }
   }

@@ -41,4 +41,9 @@ describe('tree', function() {
     expect(tree.contains(8)).to.equal(true);
   });
 
+  it('should not add child with null value', function() {
+    tree.addChild(null);
+    expect(tree.contains(null)).to.equal(false);
+  });
+
 });

@@ -68,4 +68,9 @@ describe('graph', function() {
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
   });
+
+  it('should not a node with null value to graph', function() {
+    graph.addNode(null);
+    expect(graph.contains(null)).to.equal(false);
+  });
 });
