@@ -5,6 +5,15 @@ var HashTable = function() {
   this._storage = LimitedArray(this._limit);
 };
 
+/**
+ * insert(k,v)
+ * Input: a key and its associated value
+ * Output: none
+ * Side Effects: takes a key value pair, hashes the key to find an appriate index
+ * appends the pair to the array at index
+ * Constraints: key cannot be null
+ * Time Complexity: O(1)
+ */
 HashTable.prototype.insert = function(k, v) {
   if (k !== null) {
     var index = getIndexBelowMaxForKey(k, this._limit);
@@ -44,6 +53,14 @@ HashTable.prototype.insert = function(k, v) {
   }
 };
 
+/**
+ * retrieve(k)
+ * Input: a key
+ * Output: the value associated with the key in the HashTable
+ * Side Effects: none
+ * Constraints: key must not be null and must exist in the HashTable
+ * Time Complexity: O(n) where n is the size of the bucket at index, O(1) with respect to the size of the HashTable
+ */
 HashTable.prototype.retrieve = function(k) {
   if (k === null) {
     return undefined;
@@ -58,6 +75,14 @@ HashTable.prototype.retrieve = function(k) {
   }
 };
 
+/**
+ * remove(k)
+ * Input: a key
+ * Output: none
+ * Side Effects: finds the key value pair associated with key and removes it from the hash table
+ * Constraints: key must exist in the HashTable
+ * Time Complexity: O(n) where n is the size of the bucket at index, O(1) with respect to the size of the HashTable
+ */
 HashTable.prototype.remove = function(k) {
 
   if (loadFactor(this._numEntries - 1, this._limit) <= 25 && this._limit > 8) {
@@ -88,7 +113,14 @@ HashTable.prototype.remove = function(k) {
 
 };
 
-//method that checks if we are reaching load limit or load floor, returns the load factor
+/**
+ * loadFactor(entries, limit)
+ * Input: then number of items in the HashTable and the limit of the table
+ * Output: returns a number representing the loadFactor, in percentage
+ * Side Effects: none
+ * Constraints: limit cannot be 0
+ * Time Complexity: O(1)
+ */
 var loadFactor = function(entries, limit) {
   return (entries / limit) * 100;
 };
