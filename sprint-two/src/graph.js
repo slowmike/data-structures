@@ -93,12 +93,12 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
 };
 
 /**
- * addEdge(fromNode, toNode)
- * Input: the value of the first and second nodes
+ * forEachNode(cb)
+ * Input: a callback function
  * Output: none
- * Side Effects: adds an edge between the 2 nodes, AKA updates each node's edges property to reflect the new connection
- * Constraints: both nodes must exist
- * Time Complexity: O(1)
+ * Side Effects: calls callback on every node in the graph
+ * Constraints: none
+ * Time Complexity: O(n)
  */
 Graph.prototype.forEachNode = function(cb) {
   for (var node in this.myNodes) {
