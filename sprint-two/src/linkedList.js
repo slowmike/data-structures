@@ -14,14 +14,14 @@ var LinkedList = function() {
    */
   list.addToTail = function(value) {
     var newNode = Node(value);
-    if (value !== null) {
-      if (list.head === null || list.tail === null) {
-        list.head = newNode;
-        list.tail = newNode;
-      } else {
-        list.tail.next = newNode;
-        list.tail = newNode;
-      }
+    if (value === null) { return; }
+    if (list.tail === null) {
+      list.head = newNode;
+      list.tail = newNode;
+    } else {
+      newNode.prev = list.tail;
+      list.tail.next = newNode;
+      list.tail = list.tail.next;
     }
   };
 
@@ -54,21 +54,51 @@ var LinkedList = function() {
    */
   list.contains = function(target) {
     var current = list.head;
-    while (current !== null) {
+    while (current !== list.tail) {
       if (current.value === target) {
         return true;
       }
       current = current.next;
     }
-    return false;
+    return list.head !== null && current.value === target;
   };
 
+  //doubly-linked-list------------
+  list.addToHead = function(value) {
+    var newNode = Node(value);
+    if (value === null) { return; }
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      var current = this.head;
+      current.prev = newNode;
+      current.prev.next = current;
+      this.head = newNode;
+    }
+  };
+
+  list.removeTail = function() {
+    if (list.tail === null) {
+      return list.tail;
+    }
+
+    var value = list.tail.value;
+    list.tail = list.tail.prev;
+
+    return value;
+  };
+  //-----------------------------
+
   return list;
+
 };
+
+
 
 var Node = function(value) {
   var node = {};
-
+  node.prev = null;//doubly-linked-list
   node.value = value;
   node.next = null; //an instance of a node
 
