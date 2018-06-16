@@ -37,4 +37,9 @@ describe('binarySearchTree', function() {
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5, 2, 3, 7]);
   });
+
+  it('should not insert a value of null in the tree', function() {
+    binarySearchTree.insert(null);
+    expect(binarySearchTree.contains(null)).to.equal(false);
+  });
 });

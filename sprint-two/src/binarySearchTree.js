@@ -13,7 +13,7 @@ var binaryTreeMethods = {};
 binaryTreeMethods.insert = function(num) {
 
   //the tree is populated with some item
-  if (num < this.value) {
+  if (num < this.value && num !== null) {
     if (this.left !== undefined) {
       this.left.insert(num);
     } else {
