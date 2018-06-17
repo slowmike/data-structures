@@ -4,6 +4,7 @@ var Tree = function(value) {
 
   // your code here
   newTree.children = [];
+  newTree.parent = null;//adding-parent
   _.extend(newTree, treeMethods);
 
   return newTree;
@@ -20,10 +21,10 @@ var treeMethods = {};
  * Time Complexity: O(1)
  */
 treeMethods.addChild = function(value) {
-  if (value !== null) {
-    var node = Tree(value);
-    this.children.push(node);
-  }
+  if (value === null) { return; }
+  var node = Tree(value);
+  node.parent = this;
+  this.children.push(node);
 };
 
 /**
@@ -48,7 +49,17 @@ treeMethods.contains = function(target) {
   return false;
 };
 
-
+//adding-parents---------------------
+treeMethods.removeFromParent = function() {
+  if(this.parent === null) { return; }
+  for(var i in this.parent.children) {
+    if(this.parent.children[i] === this) {
+      this.parent.children.splice(i, 1);
+    }
+  }
+  this.parent = null;
+};
+//-----------------------------------
 
 /*
  * Complexity: What is the time complexity of the above functions?
